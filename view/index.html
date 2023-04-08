@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Healthify</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="public/styles/main.css" />
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav>
+      <div class="container">
+        <div class="logo">
+          <a href="/patient/view/index.html">Healthify</a>
+        </div>
+        <ul class="menu">
+          <li><a href="/patient/view/index.html">Home</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Services</a></li>
+          <li><a href="#">Contact</a></li>
+          <li><button class="btn login-btn">Login</button></li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+      <div class="container">
+        <div class="hero-content">
+          <h1>
+            Empower Your Health with
+            <span style="font-weight: 800">Healthify</span>
+          </h1>
+          <p>
+            Take control of your health and achieve your wellness goals with
+            personalized nutrition plans and expert guidance from our team of
+            registered dietitians and health coaches.
+          </p>
+          <a href="#" class="btn btn-primary">Start Your Journey</a>
+        </div>
+        <div>
+          <div class="hero-image">
+            <img src="./public/images/medical-team.png" alt="" />
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="about">
+      <div class="container">
+        <div class="grid-container">
+          <div class="grid-item">
+            <h2>About Us</h2>
+            <p>
+              At Healthify, we believe that optimal health is achievable for
+              everyone. Our mission is to empower individuals with the
+              knowledge, tools, and support they need to make lasting
+              improvements to their health and wellbeing. We do this by
+              providing personalized nutrition and lifestyle recommendations,
+              based on the latest scientific research, and delivered by our team
+              of expert registered dietitians and health coaches.
+            </p>
+            <p>
+              Our programs are designed to be flexible and convenient, allowing
+              you to achieve your health goals no matter where you are in your
+              journey. We take a holistic approach to health, recognizing that
+              nutrition, physical activity, sleep, stress management, and social
+              support all play a role in achieving optimal health and wellbeing.
+            </p>
+            <p>
+              We are committed to making high-quality nutrition and health
+              coaching accessible and affordable to everyone. That's why we
+              offer a range of programs, from one-on-one coaching to group
+              classes and online courses, at a variety of price points.
+            </p>
+          </div>
+          <div class="grid-item">
+            <img
+              src="https://images.unsplash.com/photo-1551076805-e1869033e561?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1332&q=80"
+              alt="Healthy food"
+              class="img-fluid"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Services section -->
+    <section class="services">
+      <div class="container">
+        <h2>Our Services</h2>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="service">
+              <i class="fas fa-heartbeat"></i>
+              <h3>Personalized Nutrition</h3>
+              <p>
+                Our registered dietitians work with you to create a customized
+                nutrition plan tailored to your needs and goals.
+              </p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="service">
+              <i class="fas fa-dumbbell"></i>
+              <h3>Personal Training</h3>
+              <p>
+                Our certified personal trainers provide one-on-one guidance and
+                support to help you reach your fitness goals.
+              </p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="service">
+              <i class="fas fa-balance-scale"></i>
+              <h3>Weight Management</h3>
+              <p>
+                We offer comprehensive weight management programs to help you
+                achieve and maintain a healthy weight.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Testimonials section -->
+    <section class="testimonials">
+      <div class="container">
+        <h2>What Our Clients Say</h2>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="testimonial">
+              <p>
+                "Healthify helped me achieve my weight loss goals and improve my
+                overall health. I highly recommend their services!"
+              </p>
+              <p class="client">- John Doe</p>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="testimonial">
+              <p>
+                "I've been working with Healthify for several months now, and
+                I've seen amazing results. Their team is knowledgeable,
+                supportive, and always there when I need them."
+              </p>
+              <p class="client">- Jane Smith</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact section -->
+    <section class="contact">
+      <div class="container">
+        <h2>Contact Us</h2>
+        <form
+          method="POST"
+          name="contact"
+          action="../controller/contactController.php"
+        >
+          <label for="name">Name:</label>
+          <input type="text" id="name" name="name" required />
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" required />
+          <label for="message">Message:</label>
+          <textarea id="message" name="message" required></textarea>
+          <button type="submit" class="btn">Send Message</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <p>&copy; 2023 Healthify. All rights reserved.</p>
+      </div>
+    </footer>
+  </body>
+</html>
+<script>
+  const loginBtn = document.querySelector('.login-btn');
+  loginBtn.addEventListener('click', () => {
+    window.location.href = 'login.php'; // Replace 'login.html' with the URL of your login page
+  });
+</script>

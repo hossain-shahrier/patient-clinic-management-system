@@ -1,13 +1,20 @@
 <?php
-// Insert problems into problem.txt file
+require_once('config/db_config.php');
+
 function insertProblem($user)
 {
-    $file = fopen('../controller/problem.txt', 'a');
-    $data = $user['problem'] . "|" . $user['description'] . "|" . $user['email'] . "|" . "\n";
-    // remove last new line
-    $data = rtrim($data, "\n");
+    $conn = dbConnect();
+    $finduser = false;
 
-    fwrite($file, $data);
-    fclose($file);
-    return true;
+    // Check if the user already exists in the database
+
+    // Insert the user data into the database
+    $query = "INSERT INTO problems VALUES ('','$user[problem]','$user[description]','$user[email]')";
+    if (mysqli_query($conn, $query)) {
+        mysqli_close($conn);
+        return true;
+    } else {
+        mysqli_close($conn);
+        return false;
+    }
 }
