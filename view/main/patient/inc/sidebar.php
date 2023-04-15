@@ -31,8 +31,7 @@ if (!isset($_SESSION['username']) || !isset($_SESSION['email']) || !isset($_SESS
             <div style="width: 50%;">
                 <ul class="menu">
                     <li><a href="../dashboard.php">Home</a></li>
-                    <li><a href="../patient/doctor/">Doctors</a></li>
-                    <li><button class="btn login-btn"><a href="./logout.php">Logout</a></button></li>
+                    <li><a href="../doctor/">Doctors</a></li>
                 </ul>
             </div>
         </div>

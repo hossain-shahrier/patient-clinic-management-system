@@ -27,20 +27,28 @@
     </nav>
     <div class="signin-content">
         <div class="error"></div>
-        <form id="form" name="signup" action="../controller/loginCheck.php" method="POST">
+        <form id="form" name="login" onsubmit="return validation()" action="../controller/loginCheck.php" method="POST">
             <h1>Login</h1>
             <div class="form-group">
                 <label for="email">Email</label><br />
-                <input type="email" name="email" required />
+                <input type="email" name="email" id="email" />
+                <span id="error" style="color:red;"></span>
+
             </div>
 
             <div class="form-group">
                 <label for="password">Password</label><br />
-                <input type="password" name="password" required />
+                <input type="password" name="password" id="password" />
+                <span id="errorPass" style="color:red;"></span>
+
             </div>
 
             <div class="form-group">
                 <input class="btn" name="submit" type="submit" value="Submit" />
+            </div>
+            <div class="form-group">
+                <label for="rememberMe">Remember Me</label>
+                <input type="checkbox" name="rememberMe">
             </div>
             <div class="form-group">
                 <a href="./forgot_password.php">Forgot Password?</a>
@@ -52,3 +60,4 @@
 </body>
 
 </html>
+<script src="./public/index.js"></script>

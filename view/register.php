@@ -28,42 +28,48 @@
     <div class="signup-container">
         <div class="signup-content">
             <div class="error"></div>
-            <form id="form" name="login" action="../controller/registrationCheck.php" method="POST">
+            <form id="form" name="signup" onsubmit="return validateForm()" action="../controller/registrationCheck.php" method="POST">
                 <h1>Sign Up</h1>
                 <table>
                     <tr>
                         <td>
                             <label for="username">Username</label><br />
                             <input type="text" name="username" />
+                            <span id="error-username" style="color:red;"></span>
                         </td>
                     </tr>
                     <td>
                         <label for="email">Email</label><br />
                         <input type="email" name="email" />
+                        <span id="error-email" style="color:red;"></span>
                     </td>
                     <tr>
                     <tr>
                         <td>
                             <label for="password">Password</label><br />
                             <input type="password" name="password" />
+                            <span id="error-password" style="color:red;"></span>
                         </td>
                     </tr>
                     <tr>
                         <td>
                             <label for="repassword">Re-password</label><br />
                             <input type="password" name="repassword" />
+                            <span id="error-repassword" style="color:red;"></span>
                         </td>
                     </tr>
                     <tr>
                         <td>
                             <label for="phone">Phone</label><br />
                             <input type="text" name="phone" />
+                            <span id="error-phone" style="color:red;"></span>
                         </td>
                     </tr>
                     <tr>
                         <td>
                             <label for="address">Address</label><br />
                             <input type="text" name="address" />
+                            <span id="error-address" style="color:red;"></span>
                         </td>
                     </tr>
                     <tr>
@@ -81,3 +87,4 @@
 </body>
 
 </html>
+<script src="./public/index.js"></script>
