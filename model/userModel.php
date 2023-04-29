@@ -32,13 +32,15 @@ function validateUser($email, $password)
     // Create database connection
     $conn = dbConnect();
 
-    // Sanitize input values
-    $email = mysqli_real_escape_string($conn, $email);
-    $password = mysqli_real_escape_string($conn, $password);
+    // Prepare statement
+    $stmt = mysqli_prepare($conn, "SELECT * FROM users WHERE email = ? AND password = ?");
+    mysqli_stmt_bind_param($stmt, "ss", $email, $password);
 
-    // Query the database for user with matching email and password
-    $sql = "SELECT * FROM users WHERE email = '$email' AND password = '$password'";
-    $result = mysqli_query($conn, $sql);
+    // Execute statement
+    mysqli_stmt_execute($stmt);
+
+    // Get result
+    $result = mysqli_stmt_get_result($stmt);
 
     // Check if query returns a row
     if (mysqli_num_rows($result) == 1) {
@@ -50,13 +52,22 @@ function validateUser($email, $password)
     // Close the database connection
     mysqli_close($conn);
 }
-// Get user name
+
 // Get user name
 function userName($email)
 {
     $conn = dbConnect();
-    $sql = "SELECT username FROM users WHERE email='$email'";
-    $result = mysqli_query($conn, $sql);
+
+    // Prepare statement
+    $stmt = mysqli_prepare($conn, "SELECT username FROM users WHERE email=?");
+    mysqli_stmt_bind_param($stmt, "s", $email);
+
+    // Execute statement
+    mysqli_stmt_execute($stmt);
+
+    // Get result
+    $result = mysqli_stmt_get_result($stmt);
+
     if (mysqli_num_rows($result) > 0) {
         $user = mysqli_fetch_assoc($result);
         return $user['username'];
@@ -65,16 +76,20 @@ function userName($email)
     }
 }
 
-
 function userType($email)
 {
     $conn = dbConnect();
 
-    // Construct SQL query
-    $sql = "SELECT * FROM users WHERE email = '$email' LIMIT 1";
+    // Prepare statement
+    $stmt = mysqli_prepare($conn, "SELECT * FROM users WHERE email = ? LIMIT 1");
+    mysqli_stmt_bind_param($stmt, "s", $email);
 
-    // Execute query
-    $result = mysqli_query($conn, $sql);
+    // Execute statement
+    mysqli_stmt_execute($stmt);
+
+    // Get result
+    $result = mysqli_stmt_get_result($stmt);
+
     if (mysqli_num_rows($result) > 0) {
         $user = mysqli_fetch_assoc($result);
         return $user['type'];
@@ -83,12 +98,19 @@ function userType($email)
     }
 }
 
-// get all doctors
+// Get all doctors
 function getAllDoctors()
 {
     $conn = dbConnect();
-    $sql = "SELECT * FROM doctors";
-    $result = mysqli_query($conn, $sql);
+
+    // Prepare statement
+    $stmt = mysqli_prepare($conn, "SELECT * FROM doctors");
+
+    // Execute statement
+    mysqli_stmt_execute($stmt);
+
+    // Get result
+    $result = mysqli_stmt_get_result($stmt);
 
     if (mysqli_num_rows($result) > 0) {
         $doctors = array();
@@ -100,11 +122,19 @@ function getAllDoctors()
         return false;
     }
 }
+
 function getAllInformations()
 {
     $conn = dbConnect();
-    $sql = "SELECT * FROM informations";
-    $result = mysqli_query($conn, $sql);
+
+    // Prepare statement
+    $stmt = mysqli_prepare($conn, "SELECT * FROM informations");
+
+    // Execute statement
+    mysqli_stmt_execute($stmt);
+
+    // Get result
+    $result = mysqli_stmt_get_result($stmt);
 
     if (mysqli_num_rows($result) > 0) {
         $informations = array();
@@ -116,50 +146,59 @@ function getAllInformations()
         return false;
     }
 }
-// Reservation
+
+/// Reservation
 function insertReservation($doctor, $date, $time, $email, $r_status)
 {
     $conn = dbConnect();
 
-    $query = "INSERT INTO reservation VALUES ('','$doctor','$date','$time','$email','$r_status')";
-    if (mysqli_query($conn, $query)) {
+    // Prepare statement
+    $stmt = mysqli_prepare($conn, "INSERT INTO reservation (doctor, date, time, email, r_status) VALUES (?, ?, ?, ?, ?)");
+
+    // Bind parameters
+    mysqli_stmt_bind_param($stmt, "sssss", $doctor, $date, $time, $email, $r_status);
+
+    // Execute statement
+    if (mysqli_stmt_execute($stmt)) {
+        mysqli_stmt_close($stmt);
         mysqli_close($conn);
         return true;
     } else {
+        mysqli_stmt_close($stmt);
         mysqli_close($conn);
         return false;
     }
 }
+
 // get user by email
 function getUserByEmail($email)
 {
     $conn = dbConnect();
-    $sql = "SELECT * FROM users WHERE email='$email'";
-    $result = mysqli_query($conn, $sql);
+
+    // Prepare statement
+    $stmt = mysqli_prepare($conn, "SELECT * FROM users WHERE email=?");
+
+    // Bind parameter
+    mysqli_stmt_bind_param($stmt, "s", $email);
+
+    // Execute statement
+    mysqli_stmt_execute($stmt);
+
+    // Get result
+    $result = mysqli_stmt_get_result($stmt);
+
     if (mysqli_num_rows($result) > 0) {
         $user = mysqli_fetch_assoc($result);
+        mysqli_stmt_close($stmt);
+        mysqli_close($conn);
         return $user;
     } else {
+        mysqli_stmt_close($stmt);
+        mysqli_close($conn);
         return false;
     }
 }
-// Get all user
-function getAllUser()
-{
 
-    $dir = dirname("../controller/user.txt");
-    $file = fopen($dir . '/user.txt', 'r');
-    $users = [];
-    while (!feof($file)) {
-        $data = fgets($file);
-        $user_data = explode('|', $data);
-        if ($user_data[0] != "") {
-            array_push($users, $user_data);
-        }
-    }
-    fclose($file);
-    return $users;
-}
 // update user
 function updateUser($user)
 {
@@ -172,13 +211,20 @@ function updateUser($user)
     $phone = mysqli_real_escape_string($conn, $user['phone']);
     $address = mysqli_real_escape_string($conn, $user['address']);
 
-    // Construct SQL query
-    $sql = "UPDATE users SET username='$username', password='$password', phone='$phone', adress='$address' WHERE email='$email'";
+    // Prepare statement
+    $stmt = mysqli_prepare($conn, "UPDATE users SET username=?, password=?, phone=?, adress=? WHERE email=?");
 
-    // Execute query
-    if (mysqli_query($conn, $sql)) {
+    // Bind parameters
+    mysqli_stmt_bind_param($stmt, "sssss", $username, $password, $phone, $address, $email);
+
+    // Execute statement
+    if (mysqli_stmt_execute($stmt)) {
+        mysqli_stmt_close($stmt);
+        mysqli_close($conn);
         return true;
     } else {
+        mysqli_stmt_close($stmt);
+        mysqli_close($conn);
         return false;
     }
 }
